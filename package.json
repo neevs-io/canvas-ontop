@@ -1,0 +1,24 @@
+{
+  "name": "canvas-on-top",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "rm -rf dist && npm run build:sidepanel && npm run build:content && npm run copy:files",
+    "build:content": "BUILD_TYPE=content vite build --config vite.config.js",
+    "build:sidepanel": "vite build",
+    "copy:files": "cp manifest.json dist/manifest.json && cp background.js dist/background.js && mv dist/index.html dist/sidepanel.html"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-markdown": "^8.0.0",
+    "lucide-react": "^0.246.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
+    "vite": "^4.0.0",
+    "tailwindcss": "^3.3.0",
+    "postcss": "^8.4.0",
+    "autoprefixer": "^10.4.0"
+  }
+}
