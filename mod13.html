@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI-Powered Course Management Dashboard - 90% Presentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-content {
+            width: 100%;
+            height: calc(100vh - 60px);
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 2rem;
+            background: white;
+            transition: transform 0.5s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+        .slide-content.prev {
+            transform: translateX(-100%);
+        }
+        .slide-content.next {
+            transform: translateX(100%);
+        }
+        .controls {
+            height: 60px;
+            padding: 0.75rem;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 10;
+        }
+        button {
+            transition: background-color 0.3s, transform 0.2s;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            touch-action: manipulation;
+            background-color: #C8102E;
+            color: white;
+            border-radius: 0.5rem;
+        }
+        button:disabled {
+            background-color: #d1d5db !important;
+            cursor: not-allowed;
+        }
+        button:hover:not(:disabled) {
+            transform: scale(1.05);
+            background-color: #b50e28;
+        }
+        .progress-bar {
+            height: 4px;
+            background: #e5e7eb;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 5;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #C8102E;
+            transition: width 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        .status-badge, .severity-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: white;
+        }
+        .severity-high { background-color: #ef4444; }
+        .severity-medium { background-color: #f97316; }
+        .severity-low { background-color: #10b981; }
+        .code-block {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            max-height: 400px;
+        }
+        @media (max-width: 768px) {
+            .slide-content { padding: 1rem; }
+            h1 { font-size: 1.75rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.25rem; }
+            .controls { flex-direction: column; gap: 0.5rem; height: auto; padding: 0.5rem; }
+            button { padding: 0.5rem 1rem; font-size: 0.875rem; }
+            .code-block { font-size: 0.8rem; padding: 1rem; }
+            table { font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide-content" id="slide-0">
+            <div class="text-center animate-fade-in">
+                <img src="northeastern_logo.png" alt="Northeastern University Logo" class="mx-auto mb-6 w-56">
+                <h1 class="text-3xl font-bold text-gray-900 mb-4">AI-Powered Course Management Dashboard</h1>
+                <p class="text-gray-600 mb-6 text-lg">90% Executive Presentation - Monitoring & Controlling</p>
+                <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200 max-w-md mx-auto">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Team Members</h3>
+                    <ul class="space-y-3 text-gray-700 text-sm">
+                        <li class="flex items-center"><div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-800 font-bold mr-3">JG</div>Jackson Gray (Project Manager)</li>
+                        <li class="flex items-center"><div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-800 font-bold mr-3">JN</div>Jonas De Oliveira Neves (Technical Lead)</li>
+                        <li class="flex items-center"><div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-800 font-bold mr-3">SD</div>Shaun Donovan (Documentation/Quality Lead)</li>
+                    </ul>
+                    <p class="mt-4 text-sm text-gray-700"><span class="font-semibold">Sponsor:</span> Prof. Kurt Brandquist</p>
+                    <p class="mt-2 text-sm text-gray-700">Presented: April 13, 2025</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Project Recap -->
+        <div class="slide-content next" id="slide-1" style="display: none;">
+            <div class="max-w-4xl w-full">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Project Recap</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Objective</h3>
+                        <p class="text-gray-600">Develop a Chrome extension for Canvas LMS to:</p>
+                        <ul class="list-disc pl-5 mt-2 text-gray-600 space-y-1">
+                            <li>Provide AI-driven discussion suggestions</li>
+                            <li>Prioritize deadlines</li>
+                            <li>Track cross-course progress</li>
+                            <li>Enhance time management</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Progress to Date</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-green-500 text-white flex items-center justify-center mr-2 text-xs">✓</span>Chrome Extension MVP (Feb 14)</li>
+                            <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-green-500 text-white flex items-center justify-center mr-2 text-xs">✓</span>API Integration (Feb 28)</li>
+                            <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-green-500 text-white flex items-center justify-center mr-2 text-xs">✓</span>UI/UX Completion (Mar 15)</li>
+                            <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center mr-2 text-xs">➔</span>Beta Testing (In Progress)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Monitoring Overview -->
+        <div class="slide-content next" id="slide-2" style="display: none;">
+            <div class="max-w-4xl w-full">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Monitoring & Controlling Overview</h2>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Key Activities (Mods 10-11)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-semibold text-gray-800">Risk Management</h4>
+                            <p class="text-sm text-gray-600">Proactive risk identification and mitigation (Mod 10).</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-semibold text-gray-800">Performance Tracking</h4>
+                            <p class="text-sm text-gray-600">EVM and KPI monitoring (Mod 11).</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-semibold text-gray-800">Variance Analysis</h4>
+                            <p class="text-sm text-gray-600">Schedule and cost deviations assessed (Mod 11).</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-semibold text-gray-800">Contingency Planning</h4>
+                            <p class="text-sm text-gray-600">Prepared for unforeseen events (Mod 11).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Risk Management -->
+        <div class="slide-content next" id="slide-3" style="display: none;">
+            <div class="max-w-4xl w-full">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Risk Management Update</h2>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Current Risk Status (April 11)</h3>
+                    <table class="w-full text-gray-700 text-sm">
+                        <thead class="bg-gray-50 border-b">
+                            <tr class="text-left">
+                                <th class="px-3 py-2">Risk</th>
+                                <th class="px-3 py-2">Severity</th>
+                                <th class="px-3 py-2">Status</th>
+                                <th class="px-3 py-2">Mitigation</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="px-3 py-3">Canvas API Limits</td>
+                                <td class="px-3 py-3"><span class="severity-badge severity-medium">Medium</span></td>
+                                <td class="px-3 py-3"><span class="status-badge bg-green-500">Mitigated</span></td>
+                                <td class="px-3 py-3">Caching (60% reduction)</td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-3">Data Privacy</td>
+                                <td class="px-3 py-3"><span class="severity-badge severity-high">High</span></td>
+                                <td class="px-3 py-3"><span class="status-badge bg-green-500">Mitigated</span></td>
+                                <td class="px-3 py-3">Audit completed Apr 1</td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-3">Chrome Compatibility</td>
+                                <td class="px-3 py-3"><span class="severity-badge severity-medium">Medium</span></td>
+                                <td class="px-3 py-3"><span class="status-badge bg-green-500">Mitigated</span></td>
+                                <td class="px-3 py-3">10% failure rate</td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-3">Low User Adoption</td>
+                                <td class="px-3 py-3"><span class="severity-badge severity-low">Low</span></td>
+                                <td class="px-3 py-3"><span class="status-badge bg-yellow-500">Active</span></td>
+                                <td class="px-3 py-3">Beta incentives</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Performance Metrics -->
+        <div class="slide-content next" id="slide-4" style="display: none;">
+            <div class="max-w-4xl w-full">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Performance Metrics</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Earned Value Management (EVM)</h3>
+                        <table class="w-full text-gray-700 text-sm">
+                            <thead class="bg-gray-50 border-b">
+                                <tr class="text-left">
+                                    <th class="px-3 py-2">Metric</th>
+                                    <th class="px-3 py-2">Value</th>
+                                    <th class="px-3 py-2">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                <tr><td class="px-3 py-3">Planned Value (PV)</td><td class="px-3 py-3">$150</td><td class="px-3 py-3">-</td></tr>
+                                <tr><td class="px-3 py-3">Earned Value (EV)</td><td class="px-3 py-3">$145</td><td class="px-3 py-3">-</td></tr>
+                                <tr><td class="px-3 py-3">Actual Cost (AC)</td><td class="px-3 py-3">$95</td><td class="px-3 py-3">-</td></tr>
+                                <tr><td class="px-3 py-3">Schedule Variance (SV)</td><td class="px-3 py-3">-$5</td><td class="px-3 py-3"><span class="status-badge bg-yellow-500">Minor Delay</span></td></tr>
+                                <tr><td class="px-3 py-3">Cost Variance (CV)</td><td class="px-3 py-3">+$50</td><td class="px-3 py-3"><span class="status-badge bg-green-500">Under Budget</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Key Performance Indicators</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li>Task Completion: 95% (Beta Testing 90% done)</li>
+                            <li>API Response: 450ms (<500ms target)</li>
+                            <li>Bug Resolution: 18hrs (<24hrs target)</li>
+                            <li>User Engagement: 88% (Beta data)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Contingency Planning -->
+        <div class="slide-content next" id="slide-5" style="display: none;">
+            <div class="max-w-4xl w-full">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Contingency Planning</h2>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Unforeseen Circumstances (Mod 11)</h3>
+                    <table class="w-full text-gray-700 text-sm">
+                        <thead class="bg-gray-50 border-b">
+                            <tr class="text-left">
+                                <th class="px-3 py-2">Event</th>
+                                <th class="px-3 py-2">Impact</th>
+                                <th class="px-3 py-2">Contingency</th>
+                                <th class="px-3 py-2">Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="px-3 py-3">Budget Cuts</td>
+                                <td class="px-3 py-3">Feature reduction</td>
+                                <td class="px-3 py-3">Switch to free LLM</td>
+                                <td class="px-3 py-3">$0</td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-3">Tech Lead Sick</td>
+                                <td class="px-3 py-3">Dev delay</td>
+                                <td class="px-3 py-3">Cross-train team</td>
+                                <td class="px-3 py-3">$10</td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-3">Hardware Failure</td>
+                                <td class="px-3 py-3">Data loss</td>
+                                <td class="px-3 py-3">Cloud backups</td>
+                                <td class="px-3 py-3">$15</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="mt-4 text-sm text-gray-600">Total Contingency Buffer: $25 (15% of budget)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Technical Demo -->
+        <div class="slide-content next" id="slide-6" style="display: none;">
+            <div class="max-w-4xl w-full">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Technical Demo</h2>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Chrome Extension in Action</h3>
+                    <p class="text-gray-600 mb-4">Beta version deployed April 6:</p>
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 max-w-md mx-auto">
+                        <div class="bg-red-600 text-white p-1 flex items-center justify-between rounded-t text-xs">
+                            <span>Canvas On-Top</span>
+                            <div class="flex space-x-1"><div class="h-2 w-2 rounded-full bg-red-400"></div><div class="h-2 w-2 rounded-full bg-yellow-400"></div><div class="h-2 w-2 rounded-full bg-green-400"></div></div>
+                        </div>
+                        <div class="flex flex-col p-2 text-xs text-gray-700">
+                            <div class="w-full border-b p-2 mb-2">
+                                <div class="font-semibold mb-1">Assignments</div>
+                                <ul class="space-y-1">
+                                    <li class="p-1 bg-gray-100 rounded">Mod 13 - Due Apr 13</li>
+                                    <li class="p-1">CS5001 Quiz - Due Apr 15</li>
+                                </ul>
+                            </div>
+                            <div class="w-full p-2">
+                                <div class="bg-yellow-50 p-2 rounded border border-yellow-200">
+                                    <div class="font-semibold">AI Insight</div>
+                                    <p>Prioritize Mod 13 submission today.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://github.com/neevs-io/canvas-ontop" target="_blank" class="inline-flex items-center mt-6 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        View Source Code
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Next Steps -->
+        <div class="slide-content next" id="slide-7" style="display: none;">
+            <div class="max-w-4xl w-full">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Next Steps & Closure</h2>
+                <div class="space-y-6">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Remaining Milestones</h3>
+                        <ol class="space-y-4">
+                            <li class="flex items-start"><span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center mr-3">1</span><div><div class="font-semibold">Beta Testing Completion</div><div class="text-sm">April 15</div></div></li>
+                            <li class="flex items-start"><span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center mr-3">2</span><div><div class="font-semibold">Final Documentation</div><div class="text-sm">April 21</div></div></li>
+                            <li class="flex items-start"><span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center mr-3">3</span><div><div class="font-semibold">Final Presentation</div><div class="text-sm">April 26</div></div></li>
+                        </ol>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                        <h3 class="text-xl font-semibold text-green-800 mb-3">Thank You!</h3>
+                        <p class="text-gray-700">Project completed April 6; ready for CPS adoption.</p>
+                        <div class="mt-3 text-sm text-gray-600"><strong>Contact:</strong><ul class="mt-1"><li>Jackson Gray (<a href="mailto:gray.ja@northeastern.edu">gray.ja@northeastern.edu</a>)</li><li>Jonas De Oliveira Neves (<a href="mailto:deoliveiraneves.j@northeastern.edu">deoliveiraneves.j@northeastern.edu</a>)</li><li>Shaun Donovan (<a href="mailto:donovan.sh@northeastern.edu">donovan.sh@northeastern.edu</a>)</li></ul></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="space-x-2">
+                <button id="prev-btn" disabled>Previous</button>
+                <button id="next-btn">Next</button>
+            </div>
+            <div class="text-sm text-gray-500" id="slide-indicator">Slide 1 of 8</div>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide-content');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const slideIndicator = document.getElementById('slide-indicator');
+        const progressFill = document.getElementById('progress-fill');
+        let currentSlide = 0;
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                // Remove all position classes
+                slide.classList.remove('prev', 'next');
+                
+                // Add appropriate position class
+                if (index < currentSlide) {
+                    slide.classList.add('prev');
+                } else if (index > currentSlide) {
+                    slide.classList.add('next');
+                }
+                
+                // Hide/show slide
+                slide.style.display = index === currentSlide ? 'flex' : 'none';
+                
+                // Reset scroll position for visible slide
+                if (index === currentSlide) slide.scrollTop = 0;
+            });
+            
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+            slideIndicator.textContent = `Slide ${currentSlide + 1} of ${slides.length}`;
+            progressFill.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+        }
+
+        function goToSlide(direction) {
+            // Store the current slide
+            const currentSlideElement = slides[currentSlide];
+            
+            // Update the current slide index based on direction
+            if (direction === 'prev' && currentSlide > 0) {
+                currentSlide--;
+            } else if (direction === 'next' && currentSlide < slides.length - 1) {
+                currentSlide++;
+            } else {
+                return; // No change needed
+            }
+            
+            // Get the target slide
+            const targetSlideElement = slides[currentSlide];
+            
+            // Prepare slides for animation
+            slides.forEach((slide, index) => {
+                // Skip current and target slides
+                if (slide !== currentSlideElement && slide !== targetSlideElement) {
+                    // Hide all other slides
+                    slide.style.display = 'none';
+                    
+                    // Position them based on their index
+                    slide.classList.remove('prev', 'next');
+                    if (index < currentSlide) {
+                        slide.classList.add('prev');
+                    } else {
+                        slide.classList.add('next');
+                    }
+                }
+            });
+            
+            // Show both current and target slides for transition
+            currentSlideElement.style.display = 'flex';
+            targetSlideElement.style.display = 'flex';
+            
+            // Position the slides for transition
+            if (direction === 'prev') {
+                // Current slide moves right, target slide comes from left
+                currentSlideElement.classList.remove('prev', 'next');
+                currentSlideElement.classList.add('next');
+                
+                targetSlideElement.classList.remove('next');
+                targetSlideElement.classList.add('prev');
+                
+                // Trigger reflow
+                void targetSlideElement.offsetWidth;
+                
+                // Animate target slide in
+                targetSlideElement.classList.remove('prev');
+            } else {
+                // Current slide moves left, target slide comes from right
+                currentSlideElement.classList.remove('prev', 'next');
+                currentSlideElement.classList.add('prev');
+                
+                targetSlideElement.classList.remove('prev');
+                targetSlideElement.classList.add('next');
+                
+                // Trigger reflow
+                void targetSlideElement.offsetWidth;
+                
+                // Animate target slide in
+                targetSlideElement.classList.remove('next');
+            }
+            
+            // Reset scroll position for current slide
+            targetSlideElement.scrollTop = 0;
+            
+            // Update controls and indicators
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+            slideIndicator.textContent = `Slide ${currentSlide + 1} of ${slides.length}`;
+            progressFill.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+        }
+        
+        prevBtn.addEventListener('click', () => goToSlide('prev'));
+        nextBtn.addEventListener('click', () => goToSlide('next'));
+        prevBtn.addEventListener('touchstart', (e) => { e.preventDefault(); goToSlide('prev'); });
+        nextBtn.addEventListener('touchstart', (e) => { e.preventDefault(); goToSlide('next'); });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                goToSlide('prev');
+            } else if (e.key === 'ArrowRight') {
+                goToSlide('next');
+            }
+        });
+
+        let touchStartX = 0, touchEndX = 0;
+        document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) {
+                goToSlide('next');
+            } else if (touchEndX - touchStartX > 50) {
+                goToSlide('prev');
+            }
+        });
+
+        // Initialize first slide
+        slides.forEach((slide, index) => {
+            if (index === 0) {
+                slide.style.display = 'flex';
+                slide.classList.remove('prev', 'next');
+            } else {
+                slide.style.display = 'none';
+                slide.classList.add('next');
+            }
+        });
+        
+        // Update controls and indicators
+        prevBtn.disabled = currentSlide === 0;
+        nextBtn.disabled = currentSlide === slides.length - 1;
+        slideIndicator.textContent = `Slide ${currentSlide + 1} of ${slides.length}`;
+        progressFill.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+    </script>
+</body>
+</html>
