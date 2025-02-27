@@ -96,6 +96,9 @@
         }
         .architecture-box {
             flex: 1;
+            display: flex; /* Center text */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
             text-align: center;
             padding: 0.5rem;
             border-radius: 0.5rem;
@@ -117,6 +120,15 @@
             font-size: 0.75rem;
             font-weight: 500;
             color: white;
+        }
+        .code-block {
+            background: #1f2937; /* bg-gray-800 */
+            color: #e5e7eb; /* text-gray-200 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
         }
 
         /* Mobile-specific adjustments */
@@ -160,6 +172,9 @@
             }
             .slide-indicator {
                 margin-top: 0.5rem;
+            }
+            .code-block {
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -418,31 +433,37 @@
             </div>
         </div>
 
-        <!-- Slide 6: Code Showcase (New Slide) -->
+        <!-- Slide 6: Technical Showcase -->
         <div class="slide-content hidden" id="slide-5">
             <div class="max-w-4xl mx-auto">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Code Showcase</h2>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Technical Showcase</h2>
                 <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Canvas API Integration</h3>
-                    <p class="text-gray-600 text-sm mb-4">Here’s how we fetch assignment data to power AI suggestions:</p>
-                    <div class="bg-gray-900 text-white p-4 rounded-lg font-mono text-sm overflow-x-auto">
-                        <pre>
-fetchAssignments: async (courseId) => {
-    const token = localStorage.getItem('canvasToken');
-    const response = await fetch(
-        `https://canvas.northeastern.edu/api/v1/courses/${courseId}/assignments`,
-        {
-            headers: { Authorization: `Bearer ${token}` }
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Code Highlight: Canvas API Integration</h3>
+                    <p class="text-gray-600 text-sm mb-4">This snippet shows how we fetch assignments from Canvas using OAuth2 authentication:</p>
+                    <pre class="code-block"><code>async function fetchCanvasAssignments(token, courseId) {
+    const response = await fetch(`https://canvas.northeastern.edu/api/v1/courses/${courseId}/assignments`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json'
         }
-    );
-    return response.json();
-}
-                        </pre>
+    });
+    if (!response.ok) throw new Error('Failed to fetch assignments');
+    const data = await response.json();
+    return data.map(assignment => ({
+        id: assignment.id,
+        name: assignment.name,
+        due_at: assignment.due_at
+    }));
+}</code></pre>
+                    <div class="mt-6">
+                        <p class="text-gray-700 text-sm mb-2">Explore the full codebase:</p>
+                        <a href="https://github.com/neevs-io/canvas-ontop" target="_blank" class="inline-flex items-center px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            GitHub Repository
+                        </a>
                     </div>
-                    <p class="mt-4 text-sm text-gray-700">
-                        See the full codebase: 
-                        <a href="https://github.com/neevs-io/canvas-ontop" target="_blank" class="text-blue-600 hover:underline">github.com/neevs-io/canvas-ontop</a>
-                    </p>
                 </div>
             </div>
         </div>
@@ -563,8 +584,8 @@ fetchAssignments: async (courseId) => {
                         <div class="mt-3 text-xs text-gray-600">
                             <strong>Team Contact:</strong>
                             <ul class="mt-1 list-none">
-                                <li>Jonas De Oliveira Neves (deoliveiraneves.j@northeastern.edu)</li>
                                 <li>Jackson Gray (gray.ja@northeastern.edu)</li>
+                                <li>Jonas De Oliveira Neves (deoliveiraneves.j@northeastern.edu)</li>
                                 <li>Shaun Donovan (donovan.sh@northeastern.edu)</li>
                             </ul>
                         </div>
@@ -604,6 +625,7 @@ fetchAssignments: async (courseId) => {
             progressFill.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
         }
 
+        // Click and touch events for buttons
         function handlePrev() {
             if (currentSlide > 0) {
                 currentSlide--;
@@ -629,6 +651,7 @@ fetchAssignments: async (courseId) => {
             handleNext();
         });
 
+        // Keyboard navigation
         document.addEventListener('keydown', (event) => {
             if (event.key === 'ArrowLeft' && currentSlide > 0) {
                 currentSlide--;
@@ -639,6 +662,7 @@ fetchAssignments: async (courseId) => {
             }
         });
 
+        // Swipe navigation for mobile
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -662,6 +686,7 @@ fetchAssignments: async (courseId) => {
             }
         }
 
+        // Initialize
         updateSlide();
     </script>
 </body>
