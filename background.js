@@ -34,7 +34,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               return;
             }
             sidePanelIsOpen = false;
-            // Wrap sendMessage in try/catch to prevent the "Extension context invalidated" error.
             try {
               chrome.tabs.sendMessage(currentTabId, { action: 'sidePanelClosed' });
             } catch (error) {
@@ -50,7 +49,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     });
     return true;
   } else if (message.action === 'openLink') {
-    // Instead of creating a new tab, update the current active tab's URL.
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (tabs && tabs.length > 0) {
         chrome.tabs.update(tabs[0].id, { url: message.url }, () => {
@@ -66,5 +64,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       }
     });
     return true;
+  }
+});
+
+// Handle extension icon click to open the side panel
+chrome.action.onClicked.addListener((tab) => {
+  if (!sidePanelIsOpen) {
+    chrome.sidePanel.open({ tabId: tab.id }, () => {
+      if (chrome.runtime.lastError) {
+        console.error('Error opening side panel:', chrome.runtime.lastError);
+        return;
+      }
+      sidePanelIsOpen = true;
+    });
   }
 });
