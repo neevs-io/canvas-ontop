@@ -5,7 +5,10 @@ import { createRoot } from 'react-dom/client';
 
 const FloatingButton = () => {
   const [toggled, setToggled] = useState(false);
-  const [position, setPosition] = useState({ x: window.innerWidth - 200, y: 20 });
+  const [position, setPosition] = useState(() => {
+    const initialX = (window.innerWidth - 164) / 2;
+    return { x: initialX, y: 20 };
+  });
   const [isDragging, setIsDragging] = useState(false);
   const dragOffsetRef = useRef({ x: 0, y: 0 });
   const startPosRef = useRef(null);
@@ -67,7 +70,7 @@ const FloatingButton = () => {
     let newX = clientX - dragOffsetRef.current.x;
     let newY = clientY - dragOffsetRef.current.y;
     
-    const buttonWidth = 164;
+    const buttonWidth = 164; // Approximation for clamping
     const buttonHeight = 48;
     newX = Math.max(10, Math.min(window.innerWidth - buttonWidth - 10, newX));
     newY = Math.max(10, Math.min(window.innerHeight - buttonHeight - 10, newY));
@@ -116,35 +119,27 @@ const FloatingButton = () => {
     };
   }, [handlePointerMove, handlePointerUp]);
   
-  const arrowRotation = toggled ? 180 : 0;
-  
   return (
     <button 
       ref={buttonRef}
       onMouseDown={handlePointerDown}
       onTouchStart={handlePointerDown}
-      className={`fixed z-50 flex items-center gap-2 px-4 py-3 rounded-full shadow-lg transition-all duration-200 w-fit ${
+      className={`fixed z-50 flex items-center gap-2 px-3 py-2 rounded-full shadow-lg w-fit ${
         isDragging 
-          ? 'shadow-xl cursor-grabbing bg-neu-red'
-          : 'cursor-pointer bg-neu-red hover:bg-red-700'
+          ? 'shadow-xl cursor-grabbing bg-neu-red transition-none'
+          : 'cursor-pointer bg-neu-red hover:bg-red-700 transition-all duration-200'
       }`}
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
         touchAction: 'none',
-        minWidth: '164px',
         whiteSpace: 'nowrap'
       }}
       aria-label="Toggle side panel"
       role="button"
     >
-      <ChevronLeft 
-        size={24}
-        className="text-white transition-transform duration-300"
-        style={{ transform: `rotate(${arrowRotation}deg)` }}
-      />
-      <Sparkles size={20} className="text-white" />
-      <span className="text-white font-medium">Canvas On-Top</span>
+      <Sparkles size={18} className="text-white" />
+      <span className="text-white font-medium">Canvas On Top</span>
     </button>
   );
 };

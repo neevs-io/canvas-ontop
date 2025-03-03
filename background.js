@@ -66,16 +66,3 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
 });
-
-// Handle extension icon click to open the side panel
-chrome.action.onClicked.addListener((tab) => {
-  if (!sidePanelIsOpen) {
-    chrome.sidePanel.open({ tabId: tab.id }, () => {
-      if (chrome.runtime.lastError) {
-        console.error('Error opening side panel:', chrome.runtime.lastError);
-        return;
-      }
-      sidePanelIsOpen = true;
-    });
-  }
-});
