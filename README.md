@@ -2,6 +2,8 @@
 
 A Chrome extension that enhances the Canvas Learning Management System (LMS) with AI-powered course management features to help students stay organized and reduce academic stress.
 
+<img width="1521" alt="image" src="https://github.com/user-attachments/assets/522ae2a2-6783-4175-96b2-e654f5f64727" />
+
 ## Overview
 
 "Canvas On Top" integrates with Canvas to provide:
