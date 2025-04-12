@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AI-Powered Course Management Dashboard - 90% Presentation</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -37,12 +38,8 @@
             overflow-y: auto;
             box-sizing: border-box;
         }
-        .slide-content.prev {
-            transform: translateX(-100%);
-        }
-        .slide-content.next {
-            transform: translateX(100%);
-        }
+        .slide-content.prev { transform: translateX(-100%); }
+        .slide-content.next { transform: translateX(100%); }
         .controls {
             height: 60px;
             padding: 0.75rem;
@@ -104,6 +101,9 @@
         .severity-high { background-color: #ef4444; }
         .severity-medium { background-color: #f97316; }
         .severity-low { background-color: #10b981; }
+        .status-green { background-color: #10b981; }
+        .status-yellow { background-color: #f97316; }
+        .status-red { background-color: #ef4444; }
         .code-block {
             background: #1f2937;
             color: #e5e7eb;
@@ -167,24 +167,25 @@
                         </ul>
                     </div>
                     <div class="bg-white rounded-lg shadow-md p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Progress to Date</h3>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Progress to Date (90% Complete)</h3>
                         <ul class="space-y-3 text-gray-700">
                             <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-green-500 text-white flex items-center justify-center mr-2 text-xs">✓</span>Chrome Extension MVP (Feb 14)</li>
                             <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-green-500 text-white flex items-center justify-center mr-2 text-xs">✓</span>API Integration (Feb 28)</li>
                             <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-green-500 text-white flex items-center justify-center mr-2 text-xs">✓</span>UI/UX Completion (Mar 15)</li>
-                            <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center mr-2 text-xs">➔</span>Beta Testing (In Progress)</li>
+                            <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center mr-2 text-xs">➔</span>Beta Testing (95% done)</li>
                         </ul>
                     </div>
                 </div>
+                <p class="text-sm text-gray-600 mt-4">How can AI improve your Canvas experience?</p>
             </div>
         </div>
 
         <!-- Slide 3: Monitoring Overview -->
         <div class="slide-content next" id="slide-2" style="display: none;">
             <div class="max-w-4xl w-full">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Monitoring & Controlling Overview</h2>
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Monitoring & Controlling Overview (Mods 10-11 Focus)</h2>
                 <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Key Activities (Mods 10-11)</h3>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Key Activities</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="p-4 bg-gray-50 rounded-lg">
                             <h4 class="font-semibold text-gray-800">Risk Management</h4>
@@ -203,6 +204,21 @@
                             <p class="text-sm text-gray-600">Prepared for unforeseen events (Mod 11).</p>
                         </div>
                     </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">Stop-Light Status Dashboard</h3>
+                    <table class="w-full text-gray-700 text-sm">
+                        <thead class="bg-gray-50 border-b">
+                            <tr class="text-left">
+                                <th class="px-3 py-2">Metric</th>
+                                <th class="px-3 py-2">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr><td class="px-3 py-3">Schedule</td><td class="px-3 py-3"><span class="status-badge status-yellow">Minor Delay</span></td></tr>
+                            <tr><td class="px-3 py-3">Cost</td><td class="px-3 py-3"><span class="status-badge status-green">Under Budget</span></td></tr>
+                            <tr><td class="px-3 py-3">Risks</td><td class="px-3 py-3"><span class="status-badge status-green">Mitigated</span></td></tr>
+                            <tr><td class="px-3 py-3">Quality</td><td class="px-3 py-3"><span class="status-badge status-green">On Target</span></td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -226,72 +242,97 @@
                             <tr>
                                 <td class="px-3 py-3">Canvas API Limits</td>
                                 <td class="px-3 py-3"><span class="severity-badge severity-medium">Medium</span></td>
-                                <td class="px-3 py-3"><span class="status-badge bg-green-500">Mitigated</span></td>
+                                <td class="px-3 py-3"><span class="status-badge status-green">Mitigated</span></td>
                                 <td class="px-3 py-3">Caching (60% reduction)</td>
                             </tr>
                             <tr>
                                 <td class="px-3 py-3">Data Privacy</td>
                                 <td class="px-3 py-3"><span class="severity-badge severity-high">High</span></td>
-                                <td class="px-3 py-3"><span class="status-badge bg-green-500">Mitigated</span></td>
+                                <td class="px-3 py-3"><span class="status-badge status-green">Mitigated</span></td>
                                 <td class="px-3 py-3">Audit completed Apr 1</td>
                             </tr>
                             <tr>
                                 <td class="px-3 py-3">Chrome Compatibility</td>
                                 <td class="px-3 py-3"><span class="severity-badge severity-medium">Medium</span></td>
-                                <td class="px-3 py-3"><span class="status-badge bg-green-500">Mitigated</span></td>
+                                <td class="px-3 py-3"><span class="status-badge status-green">Mitigated</span></td>
                                 <td class="px-3 py-3">10% failure rate</td>
                             </tr>
                             <tr>
                                 <td class="px-3 py-3">Low User Adoption</td>
                                 <td class="px-3 py-3"><span class="severity-badge severity-low">Low</span></td>
-                                <td class="px-3 py-3"><span class="status-badge bg-yellow-500">Active</span></td>
+                                <td class="px-3 py-3"><span class="status-badge status-yellow">Active</span></td>
                                 <td class="px-3 py-3">Beta incentives</td>
                             </tr>
+                        </tbody>
+                    </table>
+                    <!-- Risk Matrix Visualization -->
+                    <div class="mt-4 relative" style="height: 400px;">
+                        <canvas id="riskMatrixCanvas" width="600" height="400" style="max-width: 100%;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Earned Value Management -->
+        <div class="slide-content next" id="slide-4" style="display: none;">
+            <div class="max-w-4xl w-full">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Earned Value Management</h2>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">EVM Metrics (April 11)</h3>
+                    <p class="text-gray-600 mb-4">Minor delay in beta testing offset by cost savings from optimized API usage.</p>
+                    <table class="w-full text-gray-700 text-sm">
+                        <thead class="bg-gray-50 border-b">
+                            <tr class="text-left">
+                                <th class="px-3 py-2">Metric</th>
+                                <th class="px-3 py-2">Value</th>
+                                <th class="px-3 py-2">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr><td class="px-3 py-3">Planned Value (PV)</td><td class="px-3 py-3">$164</td><td class="px-3 py-3">-</td></tr>
+                            <tr><td class="px-3 py-3">Earned Value (EV)</td><td class="px-3 py-3">$145</td><td class="px-3 py-3">-</td></tr>
+                            <tr><td class="px-3 py-3">Actual Cost (AC)</td><td class="px-3 py-3">$95</td><td class="px-3 py-3">-</td></tr>
+                            <tr><td class="px-3 py-3">Schedule Variance (SV)</td><td class="px-3 py-3">-$19</td><td class="px-3 py-3"><span class="status-badge status-yellow">Minor Delay</span></td></tr>
+                            <tr><td class="px-3 py-3">Cost Variance (CV)</td><td class="px-3 py-3">+$50</td><td class="px-3 py-3"><span class="status-badge status-green">Under Budget</span></td></tr>
+                        </tbody>
+                    </table>
+                    <p class="text-xs text-gray-500 mt-2">SV = EV - PV; CV = EV - AC</p>
+                    <!-- EVA Chart -->
+                    <div class="mt-4">
+                        <canvas id="evaChartCanvas" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Key Performance Indicators -->
+        <div class="slide-content next" id="slide-5" style="display: none;">
+            <div class="max-w-4xl w-full">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Key Performance Indicators</h2>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">KPIs (April 11)</h3>
+                    <table class="w-full text-gray-700 text-sm">
+                        <thead class="bg-gray-50 border-b">
+                            <tr class="text-left">
+                                <th class="px-3 py-2">Metric</th>
+                                <th class="px-3 py-2">Target</th>
+                                <th class="px-3 py-2">Actual</th>
+                                <th class="px-3 py-2">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr><td class="px-3 py-3">Task Completion</td><td class="px-3 py-3">100%</td><td class="px-3 py-3">95%</td><td class="px-3 py-3"><span class="status-badge status-green">On Target</span></td></tr>
+                            <tr><td class="px-3 py-3">API Response</td><td class="px-3 py-3"><500ms</td><td class="px-3 py-3">450ms</td><td class="px-3 py-3"><span class="status-badge status-green">On Target</span></td></tr>
+                            <tr><td class="px-3 py-3">Bug Resolution</td><td class="px-3 py-3"><24hrs</td><td class="px-3 py-3">18hrs</td><td class="px-3 py-3"><span class="status-badge status-green">On Target</span></td></tr>
+                            <tr><td class="px-3 py-3">User Engagement</td><td class="px-3 py-3">90%</td><td class="px-3 py-3">88%</td><td class="px-3 py-3"><span class="status-badge status-yellow">Slight Gap</span></td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 5: Performance Metrics -->
-        <div class="slide-content next" id="slide-4" style="display: none;">
-            <div class="max-w-4xl w-full">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Performance Metrics</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white rounded-lg shadow-md p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Earned Value Management (EVM)</h3>
-                        <table class="w-full text-gray-700 text-sm">
-                            <thead class="bg-gray-50 border-b">
-                                <tr class="text-left">
-                                    <th class="px-3 py-2">Metric</th>
-                                    <th class="px-3 py-2">Value</th>
-                                    <th class="px-3 py-2">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y">
-                                <tr><td class="px-3 py-3">Planned Value (PV)</td><td class="px-3 py-3">$150</td><td class="px-3 py-3">-</td></tr>
-                                <tr><td class="px-3 py-3">Earned Value (EV)</td><td class="px-3 py-3">$145</td><td class="px-3 py-3">-</td></tr>
-                                <tr><td class="px-3 py-3">Actual Cost (AC)</td><td class="px-3 py-3">$95</td><td class="px-3 py-3">-</td></tr>
-                                <tr><td class="px-3 py-3">Schedule Variance (SV)</td><td class="px-3 py-3">-$5</td><td class="px-3 py-3"><span class="status-badge bg-yellow-500">Minor Delay</span></td></tr>
-                                <tr><td class="px-3 py-3">Cost Variance (CV)</td><td class="px-3 py-3">+$50</td><td class="px-3 py-3"><span class="status-badge bg-green-500">Under Budget</span></td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="bg-white rounded-lg shadow-md p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Key Performance Indicators</h3>
-                        <ul class="space-y-3 text-gray-700">
-                            <li>Task Completion: 95% (Beta Testing 90% done)</li>
-                            <li>API Response: 450ms (<500ms target)</li>
-                            <li>Bug Resolution: 18hrs (<24hrs target)</li>
-                            <li>User Engagement: 88% (Beta data)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 6: Contingency Planning -->
-        <div class="slide-content next" id="slide-5" style="display: none;">
+        <!-- Slide 7: Contingency Planning -->
+        <div class="slide-content next" id="slide-6" style="display: none;">
             <div class="max-w-4xl w-full">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Contingency Planning</h2>
                 <div class="bg-white rounded-lg shadow-md p-6">
@@ -309,41 +350,47 @@
                             <tr>
                                 <td class="px-3 py-3">Budget Cuts</td>
                                 <td class="px-3 py-3">Feature reduction</td>
-                                <td class="px-3 py-3">Switch to free LLM</td>
+                                <td class="px-3 py-3">Switch to free LLM (low-cost scalability)</td>
                                 <td class="px-3 py-3">$0</td>
                             </tr>
                             <tr>
                                 <td class="px-3 py-3">Tech Lead Sick</td>
                                 <td class="px-3 py-3">Dev delay</td>
-                                <td class="px-3 py-3">Cross-train team</td>
+                                <td class="px-3 py-3">Cross-train team (ensures continuity)</td>
                                 <td class="px-3 py-3">$10</td>
                             </tr>
                             <tr>
                                 <td class="px-3 py-3">Hardware Failure</td>
                                 <td class="px-3 py-3">Data loss</td>
-                                <td class="px-3 py-3">Cloud backups</td>
+                                <td class="px-3 py-3">Cloud backups (high reliability)</td>
                                 <td class="px-3 py-3">$15</td>
+                            </tr>
+                            <tr>
+                                <td class="px-3 py-3">API Outage</td>
+                                <td class="px-3 py-3">Data sync halt</td>
+                                <td class="px-3 py-3">Offline mode (user continuity)</td>
+                                <td class="px-3 py-3">$5</td>
                             </tr>
                         </tbody>
                     </table>
-                    <p class="mt-4 text-sm text-gray-600">Total Contingency Buffer: $25 (15% of budget)</p>
+                    <p class="mt-4 text-sm text-gray-600">Total Contingency Buffer: $30 (18% of budget)</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 7: Technical Demo -->
-        <div class="slide-content next" id="slide-6" style="display: none;">
+        <!-- Slide 8: Technical Demo -->
+        <div class="slide-content next" id="slide-7" style="display: none;">
             <div class="max-w-4xl w-full">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Technical Demo</h2>
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <h3 class="text-xl font-semibold text-gray-800 mb-4">Chrome Extension in Action</h3>
                     <p class="text-gray-600 mb-4">Beta version deployed April 6:</p>
                     <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 max-w-md mx-auto">
-                        <div class="bg-red-600 text-white p-1 flex items-center justify-between rounded-t text-xs">
+                        <div class="bg-red-600 text-white p-1 flex items-center justify-between rounded-t text-sm">
                             <span>Canvas On-Top</span>
                             <div class="flex space-x-1"><div class="h-2 w-2 rounded-full bg-red-400"></div><div class="h-2 w-2 rounded-full bg-yellow-400"></div><div class="h-2 w-2 rounded-full bg-green-400"></div></div>
                         </div>
-                        <div class="flex flex-col p-2 text-xs text-gray-700">
+                        <div class="flex flex-col p-2 text-sm text-gray-700">
                             <div class="w-full border-b p-2 mb-2">
                                 <div class="font-semibold mb-1">Assignments</div>
                                 <ul class="space-y-1">
@@ -359,6 +406,26 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Second Screenshot -->
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 max-w-md mx-auto mt-4">
+                        <div class="bg-red-600 text-white p-1 flex items-center justify-between rounded-t text-sm">
+                            <span>Canvas On-Top: AI Suggestions</span>
+                            <div class="flex space-x-1"><div class="h-2 w-2 rounded-full bg-red-400"></div><div class="h-2 w-2 rounded-full bg-yellow-400"></div><div class="h-2 w-2 rounded-full bg-green-400"></div></div>
+                        </div>
+                        <div class="flex flex-col p-2 text-sm text-gray-700">
+                            <div class="w-full p-2">
+                                <div class="bg-blue-50 p-2 rounded border border-blue-200">
+                                    <div class="font-semibold">Discussion Post Generator</div>
+                                    <p class="mb-2">Topic: AI in Education</p>
+                                    <div class="bg-white p-2 rounded text-xs">
+                                        AI tools like ChatGPT are transforming education by providing personalized learning experiences. However, concerns about academic integrity require thoughtful implementation of these technologies.
+                                    </div>
+                                    <button class="mt-2 px-2 py-1 bg-blue-500 text-white text-xs rounded">Regenerate</button>
+                                    <button class="mt-2 ml-2 px-2 py-1 bg-green-500 text-white text-xs rounded">Copy to Clipboard</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <a href="https://github.com/neevs-io/canvas-ontop" target="_blank" class="inline-flex items-center mt-6 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                         View Source Code
@@ -367,8 +434,8 @@
             </div>
         </div>
 
-        <!-- Slide 8: Next Steps -->
-        <div class="slide-content next" id="slide-7" style="display: none;">
+        <!-- Slide 9: Next Steps -->
+        <div class="slide-content next" id="slide-8" style="display: none;">
             <div class="max-w-4xl w-full">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Next Steps & Closure</h2>
                 <div class="space-y-6">
@@ -383,7 +450,7 @@
                     <div class="bg-green-50 p-6 rounded-lg border border-green-200">
                         <h3 class="text-xl font-semibold text-green-800 mb-3">Thank You!</h3>
                         <p class="text-gray-700">Project completed April 6; ready for CPS adoption.</p>
-                        <div class="mt-3 text-sm text-gray-600"><strong>Contact:</strong><ul class="mt-1"><li>Jackson Gray (<a href="mailto:gray.ja@northeastern.edu">gray.ja@northeastern.edu</a>)</li><li>Jonas De Oliveira Neves (<a href="mailto:deoliveiraneves.j@northeastern.edu">deoliveiraneves.j@northeastern.edu</a>)</li><li>Shaun Donovan (<a href="mailto:donovan.sh@northeastern.edu">donovan.sh@northeastern.edu</a>)</li></ul></div>
+                        <div class="mt-3 text-sm text-gray-600"><strong>Contact:</strong><ul class="mt-1"><li>Jackson Gray (<a href="/cdn-cgi/l/email-protection#d3b4a1b2aafdb9b293bdbca1a7bbb6b2a0a7b6a1bdfdb6b7a6"><span class="__cf_email__" data-cfemai="c9e7e6fbfde1ece8fafdecfbe7a7ecedfc">[email&#160;protected]</span></a>)</li><li>Jonas De Oliveira Neves (<a href="/cdn-cgi/l/email-protection#9ffbfaf0f3f6e9faf6edfef1fae9faecb1f5dff1f0edebf7fafeecebfaedf1b1fafbea"><span class="__cf_email__" data-cfemail="1b7f7e7477726d7e72697a757e6d7e6835715b7574696f737e7a686f7e6975357e7f6e">[email&#160;protected]</span></a>)</li><li>Shaun Donovan (<a href="/cdn-cgi/l/email-protection#c7e3e8e9e8f1e6e9a9f4efc7e9e8f5f3efe2e6f4f3e2f5e9a9e2e3f2">[email&#160;protected]</span></a>)</li></ul></div>
                     </div>
                 </div>
             </div>
@@ -395,7 +462,7 @@
                 <button id="prev-btn" disabled>Previous</button>
                 <button id="next-btn">Next</button>
             </div>
-            <div class="text-sm text-gray-500" id="slide-indicator">Slide 1 of 8</div>
+            <div class="text-sm text-gray-500" id="slide-indicator">Slide 1 of 9</div>
         </div>
     </div>
 
@@ -409,23 +476,15 @@
 
         function updateSlide() {
             slides.forEach((slide, index) => {
-                // Remove all position classes
                 slide.classList.remove('prev', 'next');
-                
-                // Add appropriate position class
                 if (index < currentSlide) {
                     slide.classList.add('prev');
                 } else if (index > currentSlide) {
                     slide.classList.add('next');
                 }
-                
-                // Hide/show slide
                 slide.style.display = index === currentSlide ? 'flex' : 'none';
-                
-                // Reset scroll position for visible slide
                 if (index === currentSlide) slide.scrollTop = 0;
             });
-            
             prevBtn.disabled = currentSlide === 0;
             nextBtn.disabled = currentSlide === slides.length - 1;
             slideIndicator.textContent = `Slide ${currentSlide + 1} of ${slides.length}`;
@@ -433,29 +492,18 @@
         }
 
         function goToSlide(direction) {
-            // Store the current slide
             const currentSlideElement = slides[currentSlide];
-            
-            // Update the current slide index based on direction
             if (direction === 'prev' && currentSlide > 0) {
                 currentSlide--;
             } else if (direction === 'next' && currentSlide < slides.length - 1) {
                 currentSlide++;
             } else {
-                return; // No change needed
+                return;
             }
-            
-            // Get the target slide
             const targetSlideElement = slides[currentSlide];
-            
-            // Prepare slides for animation
             slides.forEach((slide, index) => {
-                // Skip current and target slides
                 if (slide !== currentSlideElement && slide !== targetSlideElement) {
-                    // Hide all other slides
                     slide.style.display = 'none';
-                    
-                    // Position them based on their index
                     slide.classList.remove('prev', 'next');
                     if (index < currentSlide) {
                         slide.classList.add('prev');
@@ -464,75 +512,49 @@
                     }
                 }
             });
-            
-            // Show both current and target slides for transition
             currentSlideElement.style.display = 'flex';
             targetSlideElement.style.display = 'flex';
-            
-            // Position the slides for transition
             if (direction === 'prev') {
-                // Current slide moves right, target slide comes from left
                 currentSlideElement.classList.remove('prev', 'next');
                 currentSlideElement.classList.add('next');
-                
                 targetSlideElement.classList.remove('next');
                 targetSlideElement.classList.add('prev');
-                
-                // Trigger reflow
                 void targetSlideElement.offsetWidth;
-                
-                // Animate target slide in
                 targetSlideElement.classList.remove('prev');
             } else {
-                // Current slide moves left, target slide comes from right
                 currentSlideElement.classList.remove('prev', 'next');
                 currentSlideElement.classList.add('prev');
-                
                 targetSlideElement.classList.remove('prev');
                 targetSlideElement.classList.add('next');
-                
-                // Trigger reflow
                 void targetSlideElement.offsetWidth;
-                
-                // Animate target slide in
                 targetSlideElement.classList.remove('next');
             }
-            
-            // Reset scroll position for current slide
             targetSlideElement.scrollTop = 0;
-            
-            // Update controls and indicators
             prevBtn.disabled = currentSlide === 0;
             nextBtn.disabled = currentSlide === slides.length - 1;
             slideIndicator.textContent = `Slide ${currentSlide + 1} of ${slides.length}`;
             progressFill.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
         }
-        
+
         prevBtn.addEventListener('click', () => goToSlide('prev'));
         nextBtn.addEventListener('click', () => goToSlide('next'));
         prevBtn.addEventListener('touchstart', (e) => { e.preventDefault(); goToSlide('prev'); });
         nextBtn.addEventListener('touchstart', (e) => { e.preventDefault(); goToSlide('next'); });
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') {
-                goToSlide('prev');
-            } else if (e.key === 'ArrowRight') {
-                goToSlide('next');
-            }
+            if (e.key === 'ArrowLeft') goToSlide('prev');
+            else if (e.key === 'ArrowRight') goToSlide('next');
         });
 
         let touchStartX = 0, touchEndX = 0;
         document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
         document.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
-            if (touchStartX - touchEndX > 50) {
-                goToSlide('next');
-            } else if (touchEndX - touchStartX > 50) {
-                goToSlide('prev');
-            }
+            if (touchStartX - touchEndX > 50) goToSlide('next');
+            else if (touchEndX - touchStartX > 50) goToSlide('prev');
         });
 
-        // Initialize first slide
+        // Initialize slides
         slides.forEach((slide, index) => {
             if (index === 0) {
                 slide.style.display = 'flex';
@@ -542,12 +564,249 @@
                 slide.classList.add('next');
             }
         });
-        
-        // Update controls and indicators
-        prevBtn.disabled = currentSlide === 0;
-        nextBtn.disabled = currentSlide === slides.length - 1;
-        slideIndicator.textContent = `Slide ${currentSlide + 1} of ${slides.length}`;
-        progressFill.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+        updateSlide();
+
+        // Initialize charts when respective slides appear
+        function initRiskMatrix() {
+            const ctx = document.getElementById('riskMatrixCanvas').getContext('2d');
+            
+            // Clear previous chart if exists
+            if (window.riskMatrix) window.riskMatrix.destroy();
+            
+            // Draw background
+            ctx.fillStyle = '#f8fafc';
+            ctx.fillRect(0, 0, 600, 400);
+            
+            // Define constants
+            const width = 600;
+            const height = 400;
+            const padding = 50;
+            const midX = padding + (width - 2 * padding) / 2;
+            const midY = padding + (height - 2 * padding) / 2;
+            
+            // Draw quadrants
+            ctx.fillStyle = '#e8f5e9';
+            ctx.fillRect(padding, padding, midX - padding, midY - padding);
+            ctx.fillStyle = '#fff8e1';
+            ctx.fillRect(midX, padding, width - padding - midX, midY - padding);
+            ctx.fillStyle = '#ffebee';
+            ctx.fillRect(padding, midY, midX - padding, height - padding - midY);
+            ctx.fillStyle = '#ffcdd2';
+            ctx.fillRect(midX, midY, width - padding - midX, height - padding - midY);
+            
+            // Draw axes
+            ctx.beginPath();
+            ctx.moveTo(padding, height - padding);
+            ctx.lineTo(width - padding, height - padding);
+            ctx.moveTo(padding, height - padding);
+            ctx.lineTo(padding, padding);
+            ctx.strokeStyle = '#4b5563';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Draw axes labels
+            ctx.font = '12px sans-serif';
+            ctx.fillStyle = '#4b5563';
+            ctx.textAlign = 'center';
+            
+            // X-axis labels
+            ctx.fillText('0', padding, height - padding + 20);
+            ctx.fillText('0.25', padding + (width - 2 * padding) * 0.25, height - padding + 20);
+            ctx.fillText('0.5', midX, height - padding + 20);
+            ctx.fillText('0.75', midX + (width - 2 * padding) * 0.25, height - padding + 20);
+            ctx.fillText('1.0', width - padding, height - padding + 20);
+            
+            // Y-axis labels
+            ctx.textAlign = 'right';
+            ctx.fillText('0', padding - 10, height - padding);
+            ctx.fillText('0.25', padding - 10, height - padding - (height - 2 * padding) * 0.25);
+            ctx.fillText('0.5', padding - 10, midY);
+            ctx.fillText('0.75', padding - 10, midY - (height - 2 * padding) * 0.25);
+            ctx.fillText('1.0', padding - 10, padding);
+            
+            // Draw quadrant divider lines
+            ctx.beginPath();
+            ctx.moveTo(midX, padding);
+            ctx.lineTo(midX, height - padding);
+            ctx.moveTo(padding, midY);
+            ctx.lineTo(width - padding, midY);
+            ctx.strokeStyle = '#9ca3af';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([4, 4]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            // Draw quadrant labels
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#4a5568';
+            ctx.fillText('Low Risk', padding + (midX - padding) / 2, padding + (midY - padding) / 2);
+            ctx.fillText('Monitor', midX + (width - padding - midX) / 2, padding + (midY - padding) / 2);
+            ctx.fillText('Consider', padding + (midX - padding) / 2, midY + (height - padding - midY) / 2);
+            ctx.fillText('High Risk', midX + (width - padding - midX) / 2, midY + (height - padding - midY) / 2);
+            
+            // Draw axis titles
+            ctx.save();
+            ctx.translate(width / 2, height - 10);
+            ctx.fillText('Likelihood', 0, 0);
+            ctx.restore();
+            
+            ctx.save();
+            ctx.translate(10, height / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText('Impact', 0, 0);
+            ctx.restore();
+            
+            // Risk data
+            const risks = [
+                { name: "Low User Adoption", x: 0.3, y: 0.4, color: "#10b981" }, // green - low severity
+                { name: "Chrome Compatibility", x: 0.5, y: 0.6, color: "#f97316" }, // orange - medium severity
+                { name: "Canvas API Limits", x: 0.5, y: 0.8, color: "#f97316" }, // orange - medium severity
+                { name: "Data Privacy", x: 0.2, y: 0.9, color: "#ef4444" }, // red - high severity
+            ];
+            
+            // Function to map data coordinates to canvas coordinates
+            const mapX = (x) => padding + x * (width - 2 * padding);
+            const mapY = (y) => height - (padding + y * (height - 2 * padding));
+            
+            // Draw risk points
+            risks.forEach((risk, i) => {
+                ctx.beginPath();
+                ctx.arc(mapX(risk.x), mapY(risk.y), 12, 0, 2 * Math.PI);
+                ctx.fillStyle = risk.color;
+                ctx.globalAlpha = 0.8;
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+                
+                ctx.fillStyle = 'white';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(i + 1, mapX(risk.x), mapY(risk.y));
+            });
+            
+            // Draw legend
+            const legendX = width - 150;
+            const legendY = 20;
+            const legendWidth = 140;
+            const legendHeight = 120;
+            
+            ctx.fillStyle = 'white';
+            ctx.fillRect(legendX, legendY, legendWidth, legendHeight);
+            ctx.strokeStyle = '#e5e7eb';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(legendX, legendY, legendWidth, legendHeight);
+            
+            ctx.fillStyle = '#1f2937';
+            ctx.textAlign = 'left';
+            ctx.font = 'bold 12px sans-serif';
+            ctx.fillText('Risk Legend', legendX + 10, legendY + 15);
+            
+            ctx.font = '11px sans-serif';
+            risks.forEach((risk, i) => {
+                const y = legendY + 35 + i * 20;
+                
+                // Draw circle
+                ctx.beginPath();
+                ctx.arc(legendX + 15, y, 6, 0, 2 * Math.PI);
+                ctx.fillStyle = risk.color;
+                ctx.fill();
+                
+                // Draw number
+                ctx.fillStyle = 'white';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.font = 'bold 9px sans-serif';
+                ctx.fillText(i + 1, legendX + 15, y);
+                
+                // Draw label
+                ctx.fillStyle = '#4b5563';
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'middle';
+                ctx.font = '11px sans-serif';
+                ctx.fillText(risk.name, legendX + 30, y);
+            });
+        }
+
+        function initEVAChart() {
+            const ctx = document.getElementById('evaChartCanvas').getContext('2d');
+            
+            // Clear previous chart if exists
+            if (window.evaChart) window.evaChart.destroy();
+            
+            const data = {
+                labels: ['Jan 19', 'Feb 14', 'Mar 7', 'Mar 29'],
+                datasets: [
+                    { 
+                        label: 'PV ($)',
+                        data: [0, 50, 100, 164],
+                        backgroundColor: '#C8102E',
+                        borderColor: '#C8102E',
+                        borderWidth: 1
+                    },
+                    { 
+                        label: 'EV ($)',
+                        data: [0, 50, 90, 145],
+                        backgroundColor: '#4B8BBE',
+                        borderColor: '#4B8BBE',
+                        borderWidth: 1
+                    },
+                    { 
+                        label: 'AC ($)',
+                        data: [0, 30, 65, 95],
+                        backgroundColor: '#5AAD71',
+                        borderColor: '#5AAD71',
+                        borderWidth: 1
+                    }
+                ]
+            };
+            
+            window.evaChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Amount ($)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                afterBody: function(context) {
+                                    const index = context[0].dataIndex;
+                                    const datasets = context[0].chart.data.datasets;
+                                    
+                                    if (index === 3) { // Only for the last data point
+                                        const pv = datasets[0].data[index];
+                                        const ev = datasets[1].data[index];
+                                        const ac = datasets[2].data[index];
+                                        
+                                        const sv = ev - pv;
+                                        const cv = ev - ac;
+                                        
+                                        return [
+                                            `Schedule Variance: ${sv}`,
+                                            `Cost Variance: ${cv}`
+                                        ];
+                                    }
+                                    
+                                    return null;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
     </script>
 </body>
 </html>
