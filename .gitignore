@@ -16,3 +16,5 @@ logs
 #temp
 temp
 
+# macos
+.DS_Store
