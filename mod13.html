@@ -489,6 +489,7 @@
             nextBtn.disabled = currentSlide === slides.length - 1;
             slideIndicator.textContent = `Slide ${currentSlide + 1} of ${slides.length}`;
             progressFill.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+            checkAndInitCharts();
         }
 
         function goToSlide(direction) {
@@ -534,6 +535,7 @@
             nextBtn.disabled = currentSlide === slides.length - 1;
             slideIndicator.textContent = `Slide ${currentSlide + 1} of ${slides.length}`;
             progressFill.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+            checkAndInitCharts();
         }
 
         prevBtn.addEventListener('click', () => goToSlide('prev'));
@@ -565,6 +567,17 @@
             }
         });
         updateSlide();
+        checkAndInitCharts();
+        
+        // Initialize charts when specific slides are shown
+        function checkAndInitCharts() {
+            if (currentSlide === 3) { // Risk Management slide
+                setTimeout(initRiskMatrix, 100);
+            }
+            if (currentSlide === 4) { // EVM slide
+                setTimeout(initEVAChart, 100);
+            }
+        }
 
         // Initialize charts when respective slides appear
         function initRiskMatrix() {
