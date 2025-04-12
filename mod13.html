@@ -114,6 +114,16 @@
             overflow-x: auto;
             max-height: 400px;
         }
+        /* Updated: Standardized icon sizing and spacing for Slide 2 */
+        .slide-content ul li span {
+            width: 1.25rem; /* w-5 */
+            height: 1.25rem; /* h-5 */
+            margin-right: 0.75rem; /* mr-3 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem; /* text-xs */
+        }
         @media (max-width: 768px) {
             .slide-content { padding: 1rem; }
             h1 { font-size: 1.75rem; }
@@ -123,6 +133,12 @@
             button { padding: 0.5rem 1rem; font-size: 0.875rem; }
             .code-block { font-size: 0.8rem; padding: 1rem; }
             table { font-size: 0.75rem; }
+            .slide-content ul li span {
+                width: 1rem;
+                height: 1rem;
+                margin-right: 0.5rem;
+                font-size: 0.65rem;
+            }
         }
     </style>
 </head>
@@ -169,10 +185,11 @@
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <h3 class="text-xl font-semibold text-gray-800 mb-3">Progress to Date (90% Complete)</h3>
                         <ul class="space-y-3 text-gray-700">
-                            <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-green-500 text-white flex items-center justify-center mr-2 text-xs">✓</span>Chrome Extension MVP (Feb 14)</li>
-                            <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-green-500 text-white flex items-center justify-center mr-2 text-xs">✓</span>API Integration (Feb 28)</li>
-                            <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-green-500 text-white flex items-center justify-center mr-2 text-xs">✓</span>UI/UX Completion (Mar 15)</li>
-                            <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center mr-2 text-xs">➔</span>Beta Testing (95% done)</li>
+                            <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-green-500 text-white flex items-center justify-center mr-3 text-xs">✓</span>Chrome Extension MVP (Feb 14)</li>
+                            <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-green-500 text-white flex items-center justify-center mr-3 text-xs">✓</span>API Integration (Feb 28)</li>
+                            <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-green-500 text-white flex items-center justify-center mr-3 text-xs">✓</span>UI/UX Completion (Mar 15)</li>
+                            <!-- Updated: Simplified Beta Testing text -->
+                            <li class="flex items-center"><span class="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center mr-3 text-xs">➔</span>Beta Testing (In Progress)</li>
                         </ul>
                     </div>
                 </div>
@@ -215,7 +232,7 @@
                         <tbody class="divide-y">
                             <tr><td class="px-3 py-3">Schedule</td><td class="px-3 py-3"><span class="status-badge status-yellow">Minor Delay</span></td></tr>
                             <tr><td class="px-3 py-3">Cost</td><td class="px-3 py-3"><span class="status-badge status-green">Under Budget</span></td></tr>
-                            <tr><td class="px-3 py-3">Risks</td><td class="px-3 py-3"><span class="status-badge status-green">Mitigated</span></td></tr>
+                            <tr><td class="px-3 py-3">Risks</td><td class="px-3 py-3"><span class="status-badge status-green">Mostly Mitigated</span></td></tr>
                             <tr><td class="px-3 py-3">Quality</td><td class="px-3 py-3"><span class="status-badge status-green">On Target</span></td></tr>
                         </tbody>
                     </table>
@@ -254,7 +271,7 @@
                             <tr>
                                 <td class="px-3 py-3">Chrome Compatibility</td>
                                 <td class="px-3 py-3"><span class="severity-badge severity-medium">Medium</span></td>
-                                <td class="px-3 py-3"><span class="status-badge status-green">Mitigated</span></td>
+                                <td class="px-3 py-3"><span class="status-badge status-yellow">Partially Mitigated</span></td>
                                 <td class="px-3 py-3">10% failure rate</td>
                             </tr>
                             <tr>
@@ -265,7 +282,6 @@
                             </tr>
                         </tbody>
                     </table>
-                    <!-- Risk Matrix Visualization -->
                     <div class="mt-4 relative flex justify-center" style="height: 400px;">
                         <canvas id="riskMatrixCanvas" width="600" height="400" style="max-width: 100%;"></canvas>
                     </div>
@@ -289,15 +305,14 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y">
-                            <tr><td class="px-3 py-3">Planned Value (PV)</td><td class="px-3 py-3">$164</td><td class="px-3 py-3">-</td></tr>
-                            <tr><td class="px-3 py-3">Earned Value (EV)</td><td class="px-3 py-3">$145</td><td class="px-3 py-3">-</td></tr>
+                            <tr><td class="px-3 py-3">Planned Value (PV)</td><td class="px-3 py-3">$147.6</td><td class="px-3 py-3">-</td></tr>
+                            <tr><td class="px-3 py-3">Earned Value (EV)</td><td class="px-3 py-3">$137.5</td><td class="px-3 py-3">-</td></tr>
                             <tr><td class="px-3 py-3">Actual Cost (AC)</td><td class="px-3 py-3">$95</td><td class="px-3 py-3">-</td></tr>
-                            <tr><td class="px-3 py-3">Schedule Variance (SV)</td><td class="px-3 py-3">-$19</td><td class="px-3 py-3"><span class="status-badge status-yellow">Minor Delay</span></td></tr>
-                            <tr><td class="px-3 py-3">Cost Variance (CV)</td><td class="px-3 py-3">+$50</td><td class="px-3 py-3"><span class="status-badge status-green">Under Budget</span></td></tr>
+                            <tr><td class="px-3 py-3">Schedule Variance (SV)</td><td class="px-3 py-3">-$10.1</td><td class="px-3 py-3"><span class="status-badge status-yellow">Minor Delay</span></td></tr>
+                            <tr><td class="px-3 py-3">Cost Variance (CV)</td><td class="px-3 py-3">+$42.5</td><td class="px-3 py-3"><span class="status-badge status-green">Under Budget</span></td></tr>
                         </tbody>
                     </table>
                     <p class="text-xs text-gray-500 mt-2">SV = EV - PV; CV = EV - AC</p>
-                    <!-- EVA Chart -->
                     <div class="mt-4 flex justify-center">
                         <canvas id="evaChartCanvas" height="250" style="max-width: 100%;"></canvas>
                     </div>
@@ -321,10 +336,10 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y">
-                            <tr><td class="px-3 py-3">Task Completion</td><td class="px-3 py-3">100%</td><td class="px-3 py-3">95%</td><td class="px-3 py-3"><span class="status-badge status-green">On Target</span></td></tr>
+                            <tr><td class="px-3 py-3">Task Completion</td><td class="px-3 py-3">100%</td><td class="px-3 py-3">90% (Beta Testing to complete April 15)</td><td class="px-3 py-3"><span class="status-badge status-yellow">Slight Delay</span></td></tr>
                             <tr><td class="px-3 py-3">API Response</td><td class="px-3 py-3"><500ms</td><td class="px-3 py-3">450ms</td><td class="px-3 py-3"><span class="status-badge status-green">On Target</span></td></tr>
                             <tr><td class="px-3 py-3">Bug Resolution</td><td class="px-3 py-3"><24hrs</td><td class="px-3 py-3">18hrs</td><td class="px-3 py-3"><span class="status-badge status-green">On Target</span></td></tr>
-                            <tr><td class="px-3 py-3">User Engagement</td><td class="px-3 py-3">90%</td><td class="px-3 py-3">88%</td><td class="px-3 py-3"><span class="status-badge status-yellow">Slight Gap</span></td></tr>
+                            <tr><td class="px-3 py-3">User Engagement</td><td class="px-3 py-3">90%</td><td class="px-3 py-3">85%</td><td class="px-3 py-3"><span class="status-badge status-yellow">Slight Gap</span></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -406,7 +421,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Second Screenshot -->
                     <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 max-w-md mx-auto mt-4">
                         <div class="bg-red-600 text-white p-1 flex items-center justify-between rounded-t text-sm">
                             <span>Canvas On-Top: AI Suggestions</span>
@@ -427,7 +441,7 @@
                         </div>
                     </div>
                     <a href="https://github.com/neevs-io/canvas-ontop" target="_blank" class="inline-flex items-center mt-6 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                         View Source Code
                     </a>
                 </div>
@@ -442,15 +456,23 @@
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <h3 class="text-xl font-semibold text-gray-800 mb-4">Remaining Milestones</h3>
                         <ol class="space-y-4">
-                            <li class="flex items-start"><span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center mr-3">1</span><div><div class="font-semibold">Beta Testing Completion</div><div class="text-sm">April 15</div></div></li>
-                            <li class="flex items-start"><span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center mr-3">2</span><div><div class="font-semibold">Final Documentation</div><div class="text-sm">April 21</div></div></li>
-                            <li class="flex items-start"><span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center mr-3">3</span><div><div class="font-semibold">Final Presentation</div><div class="text-sm">April 26</div></div></li>
+                            <li class="flex items-start"><span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center mr-3">1</span><div><div class="font-semibold">Beta Testing Completion</div><div class="text-sm">April 15 - Extended for feedback integration</div></div></li>
+                            <li class="flex items-start"><span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center mr-3">2</span><div><div class="font-semibold">Final Documentation</div><div class="text-sm">Completed April 6, refinements by April 21</div></div></li>
+                            <li class="flex items-start"><span class="w-6 h-6 rounded-full bg-red-400 text-white flex items-center justify-center mr-3">3</span><div><div class="font-semibold">Final Presentation</div><div class="text-sm">April 26</div></div></li>
                         </ol>
                     </div>
                     <div class="bg-green-50 p-6 rounded-lg border border-green-200">
                         <h3 class="text-xl font-semibold text-green-800 mb-3">Thank You!</h3>
-                        <p class="text-gray-700">Project completed April 6; ready for CPS adoption.</p>
-                        <div class="mt-3 text-sm text-gray-600"><strong>Contact:</strong><ul class="mt-1"><li>Jackson Gray (<a href="/cdn-cgi/l/email-protection#d3b4a1b2aafdb9b293bdbca1a7bbb6b2a0a7b6a1bdfdb6b7a6"><span class="__cf_email__" data-cfemai="c9e7e6fbfde1ece8fafdecfbe7a7ecedfc">[email&#160;protected]</span></a>)</li><li>Jonas De Oliveira Neves (<a href="/cdn-cgi/l/email-protection#9ffbfaf0f3f6e9faf6edfef1fae9faecb1f5dff1f0edebf7fafeecebfaedf1b1fafbea"><span class="__cf_email__" data-cfemail="1b7f7e7477726d7e72697a757e6d7e6835715b7574696f737e7a686f7e6975357e7f6e">[email&#160;protected]</span></a>)</li><li>Shaun Donovan (<a href="/cdn-cgi/l/email-protection#c7e3e8e9e8f1e6e9a9f4efc7e9e8f5f3efe2e6f4f3e2f5e9a9e2e3f2">[email&#160;protected]</span></a>)</li></ul></div>
+                        <!-- Updated: Closure statement simplified -->
+                        <p class="text-gray-700">Project completed April 6; Beta Testing and monitoring ongoing.</p>
+                        <!-- Updated: Team member emails -->
+                        <div class="mt-3 text-sm text-gray-600"><strong>Contact:</strong>
+                            <ul class="mt-1">
+                                <li>Jackson Gray (<a href="mailto:gray.ja@northeastern.edu">gray.ja@northeastern.edu</a>)</li>
+                                <li>Jonas De Oliveira Neves (<a href="mailto:deoliveiraneves.j@northeastern.edu">deoliveiraneves.j@northeastern.edu</a>)</li>
+                                <li>Shaun Donovan (<a href="mailto:donovan.sh@northeastern.edu">donovan.sh@northeastern.edu</a>)</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -671,10 +693,10 @@
             
             // Risk data
             const risks = [
-                { name: "Low User Adoption", x: 0.3, y: 0.4, color: "#10b981" }, // green - low severity
-                { name: "Chrome Compatibility", x: 0.5, y: 0.6, color: "#f97316" }, // orange - medium severity
-                { name: "Canvas API Limits", x: 0.5, y: 0.8, color: "#f97316" }, // orange - medium severity
-                { name: "Data Privacy", x: 0.2, y: 0.9, color: "#ef4444" }, // red - high severity
+                { name: "Low User Adoption", x: 0.3, y: 0.4, color: "#10b981" },
+                { name: "Chrome Compatibility", x: 0.5, y: 0.6, color: "#f97316" },
+                { name: "Canvas API Limits", x: 0.5, y: 0.8, color: "#f97316" },
+                { name: "Data Privacy", x: 0.2, y: 0.9, color: "#ef4444" },
             ];
             
             // Function to map data coordinates to canvas coordinates
@@ -746,25 +768,25 @@
             if (window.evaChart) window.evaChart.destroy();
             
             const data = {
-                labels: ['Jan 19', 'Feb 14', 'Mar 7', 'Mar 29'],
+                labels: ['Jan 19', 'Feb 14', 'Mar 7', 'Mar 29', 'Apr 11'],
                 datasets: [
                     { 
                         label: 'PV ($)',
-                        data: [0, 50, 100, 164],
+                        data: [0, 50, 100, 130, 147.6],
                         backgroundColor: '#C8102E',
                         borderColor: '#C8102E',
                         borderWidth: 1
                     },
                     { 
                         label: 'EV ($)',
-                        data: [0, 50, 90, 145],
+                        data: [0, 50, 90, 125, 137.5],
                         backgroundColor: '#4B8BBE',
                         borderColor: '#4B8BBE',
                         borderWidth: 1
                     },
                     { 
                         label: 'AC ($)',
-                        data: [0, 30, 65, 95],
+                        data: [0, 30, 65, 95, 95],
                         backgroundColor: '#5AAD71',
                         borderColor: '#5AAD71',
                         borderWidth: 1
@@ -797,7 +819,7 @@
                                     const index = context[0].dataIndex;
                                     const datasets = context[0].chart.data.datasets;
                                     
-                                    if (index === 3) { // Only for the last data point
+                                    if (index === 4) {
                                         const pv = datasets[0].data[index];
                                         const ev = datasets[1].data[index];
                                         const ac = datasets[2].data[index];
@@ -806,8 +828,8 @@
                                         const cv = ev - ac;
                                         
                                         return [
-                                            `Schedule Variance: ${sv}`,
-                                            `Cost Variance: ${cv}`
+                                            `Schedule Variance: ${sv.toFixed(1)}`,
+                                            `Cost Variance: ${cv.toFixed(1)}`
                                         ];
                                     }
                                     
@@ -819,7 +841,6 @@
                 }
             });
         }
-
     </script>
 </body>
 </html>
