@@ -49,6 +49,19 @@ const FloatingButton = () => {
     });
   }, [toggled]);
 
+  // Keyboard shortcut handler
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+        e.preventDefault();
+        toggleSidePanel();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [toggleSidePanel]);
+
   const handlePointerDown = useCallback((e) => {
     const clientX = e.clientX || e.touches?.[0]?.clientX;
     const clientY = e.clientY || e.touches?.[0]?.clientY;
@@ -70,7 +83,7 @@ const FloatingButton = () => {
     let newX = clientX - dragOffsetRef.current.x;
     let newY = clientY - dragOffsetRef.current.y;
     
-    const buttonWidth = 164; // Approximation for clamping
+    const buttonWidth = 164;
     const buttonHeight = 48;
     newX = Math.max(10, Math.min(window.innerWidth - buttonWidth - 10, newX));
     newY = Math.max(10, Math.min(window.innerHeight - buttonHeight - 10, newY));
@@ -124,10 +137,10 @@ const FloatingButton = () => {
       ref={buttonRef}
       onMouseDown={handlePointerDown}
       onTouchStart={handlePointerDown}
-      className={`fixed z-50 flex items-center gap-2 px-3 py-2 rounded-full shadow-lg w-fit ${
+      className={`fixed z-50 flex items-center gap-2 px-4 py-3 rounded-full shadow-lg w-fit ${
         isDragging 
-          ? 'shadow-xl cursor-grabbing bg-neu-red transition-none'
-          : 'cursor-pointer bg-neu-red hover:bg-red-700 transition-all duration-200'
+          ? 'shadow-xl cursor-grabbing bg-red-600 transition-none'
+          : 'cursor-pointer bg-red-600 hover:bg-red-700 transition-all duration-200'
       }`}
       style={{
         left: `${position.x}px`,
@@ -135,11 +148,14 @@ const FloatingButton = () => {
         touchAction: 'none',
         whiteSpace: 'nowrap'
       }}
-      aria-label="Toggle side panel"
+      aria-label="Toggle Canvas OnTop panel"
       role="button"
     >
       <Sparkles size={18} className="text-white" />
-      <span className="text-white font-medium">Canvas On Top</span>
+      <span className="text-white font-medium">Canvas OnTop</span>
+      <span className="ml-2 px-2 py-1 bg-white/20 rounded-full text-xs text-white">
+        Ctrl+/
+      </span>
     </button>
   );
 };

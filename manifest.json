@@ -2,6 +2,7 @@
   "manifest_version": 3,
   "name": "Canvas On Top",
   "version": "1.0",
+  "description": "Enhanced Canvas LMS experience with AI-powered navigation and time management",
   "side_panel": {
     "default_path": "sidepanel.html"
   },
@@ -26,12 +27,23 @@
     "matches": ["https://*.instructure.com/*"]
   }],
   "host_permissions": [
-    "https://your-canvas-instance.com/*",
+    "https://*.instructure.com/*",
     "https://api.openai.com/*"
   ],
   "permissions": [
     "tabs",
     "sidePanel",
-    "storage"
-  ]
+    "storage",
+    "contextMenus",
+    "activeTab"
+  ],
+  "commands": {
+    "toggle-sidepanel": {
+      "suggested_key": {
+        "default": "Ctrl+Space",
+        "mac": "Command+Space"
+      },
+      "description": "Toggle the side panel"
+    }
+  }
 }

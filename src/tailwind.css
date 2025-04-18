@@ -9,10 +9,19 @@
 }
 
 @layer components {
-  .react-markdown a {
-    @apply text-teal-600 underline hover:text-teal-700 transition-colors;
+  .markdown-content {
+    @apply space-y-3;
   }
-  .react-markdown strong {
-    @apply font-semibold text-gray-900;
+  .markdown-content ul {
+    @apply list-disc pl-5 space-y-2;
+  }
+  .markdown-content ol {
+    @apply list-decimal pl-5 space-y-2;
+  }
+  .markdown-content li {
+    @apply leading-relaxed;
+  }
+  .markdown-content p {
+    @apply leading-relaxed;
   }
 }
