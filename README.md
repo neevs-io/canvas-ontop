@@ -7,7 +7,7 @@
 **AI-powered Chrome extension for enhanced Canvas LMS course management**
 
 <div align="center">
-<img width="800" alt="Canvas OnTop Preview" src="https://github.com/user-attachments/assets/522ae2a2-6783-4175-96b2-e654f5f64727" />
+<img width="640" alt="Canvas OnTop Preview" src="https://github.com/user-attachments/assets/af2f48e1-d616-4e10-b448-1d157a87bd45" />
 </div>
 
 
@@ -210,16 +210,9 @@ After installation, you'll need to configure:
 3. Add your Canvas API token ([How to generate a token](https://community.canvaslms.com/t5/Admin-Guide/How-do-I-manage-API-access-tokens-as-an-admin/ta-p/89))
 4. Add your OpenAI API key (optional, for AI features)
 
-## 👥 Team
+## 👥 Project Background
 
-This project was developed as part of ITC4850 Information Technology Project (Spring 2025) at Northeastern University CPS.
-
-| Name | Role |
-|------|------|
-| **Jackson Gray** | Project Manager |
-| **Jonas De Oliveira Neves** | Technical Lead |
-| **Shaun Donovan** | Documentation/Quality Lead |
-| **Prof. Kurt Brandquist** | Faculty Sponsor |
+This project was developed as part of ITC4850 Information Technology Project (Spring 2025) at Northeastern University CPS by a student development team.
 
 ## 🤝 Contributing
 
