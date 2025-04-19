@@ -33,14 +33,13 @@
     "matches": ["https://*.instructure.com/*"]
   }],
   "host_permissions": [
-    "https://*.instructure.com/*",
-    "https://api.openai.com/*"
+    "https://*.instructure.com/api/v1/courses/*",
+    "https://api.openai.com/v1/chat/completions"
   ],
   "permissions": [
     "tabs",
     "sidePanel",
     "storage",
-    "contextMenus",
     "activeTab"
   ],
   "commands": {
