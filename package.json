@@ -6,7 +6,7 @@
     "build": "rm -rf dist && npm run build:sidepanel && npm run build:content && npm run copy:files",
     "build:content": "BUILD_TYPE=content vite build --config vite.config.js",
     "build:sidepanel": "vite build",
-    "copy:files": "cp manifest.json dist/manifest.json && cp background.js dist/background.js && mv dist/index.html dist/sidepanel.html"
+    "copy:files": "cp manifest.json dist/manifest.json && cp background.js dist/background.js && mv dist/index.html dist/sidepanel.html && mkdir -p dist/icons && cp -r icons/* dist/icons/"
   },
   "dependencies": {
     "react": "^18.0.0",
